@@ -1,0 +1,19 @@
+{
+  "name": "engineering-harness",
+  "version": "0.1.0",
+  "description": "A disciplined engineering workflow for coding agents: contract-first, outside-in TDD, root-cause debugging, evidence before claims, and drift reconciliation.",
+  "author": {
+    "name": "Mohsin Hafeez"
+  },
+  "homepage": "https://github.com/Mosin112/engineering-harness",
+  "repository": "https://github.com/Mosin112/engineering-harness",
+  "license": "MIT",
+  "keywords": [
+    "tdd",
+    "contracts",
+    "debugging",
+    "verification",
+    "skills",
+    "workflow"
+  ]
+}

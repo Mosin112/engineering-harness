@@ -1,0 +1,13 @@
+{
+  "name": "engineering-harness",
+  "owner": {
+    "name": "Mohsin Hafeez"
+  },
+  "plugins": [
+    {
+      "name": "engineering-harness",
+      "source": "./",
+      "description": "Contract-first, outside-in TDD, root-cause debugging, verify-before-done, and drift-sync skills for coding agents."
+    }
+  ]
+}

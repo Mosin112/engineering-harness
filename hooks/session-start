@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+# SessionStart hook: puts the bootstrap skill into the agent's context so the
+# harness workflow is active from the first message.
+set -euo pipefail
+
+root="${CLAUDE_PLUGIN_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}"
+skill="$root/skills/using-engineering-harness/SKILL.md"
+
+if [ ! -r "$skill" ]; then
+  echo "engineering-harness: bootstrap skill not found at $skill" >&2
+  exit 0
+fi
+
+# Drop the YAML frontmatter, keep the body.
+body=$(awk 'BEGIN{n=0} /^---[[:space:]]*$/{n++; next} n>=2{print}' "$skill")
+
+context="<engineering-harness>
+You have the Engineering Harness. Follow the workflow below, and load the named skills
+when their situation applies.
+
+${body}
+</engineering-harness>"
+
+if command -v jq > /dev/null 2>&1; then
+  jq -n --arg ctx "$context" \
+    '{hookSpecificOutput: {hookEventName: "SessionStart", additionalContext: $ctx}}'
+else
+  # Plain stdout from a SessionStart hook is added to the context as-is.
+  printf '%s\n' "$context"
+fi
